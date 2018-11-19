@@ -1,11 +1,10 @@
 <template>
-  <div class="skills">
+  <div class="container">
     <div class="holder">
       <ul>
-        <li v-for="(data, index) in skills" :key='index'>{{index}}. {{data.skill}}</li>
+        <li v-for="(data, index) in skills" :key='index'>{{data.skill}}</li>
       </ul>
-      <p v-if="skills.length >= 1">You have more than 1 skill</p>
-      <p v-else>You have less than or equal to 1 skill</p>
+      <p>These are the skills that you possess.</p>
     </div>
   </div>
 </template>
@@ -18,26 +17,18 @@
         skills: [
           { "skill": "Vue.js" },
           { "skill": "Frontend Developer" }
-        ]
+        ],
+        alertObject: {
+           bgColor: 'yellow',
+           bgWidth: '100%',
+           bgHeight: '30px'
+        }
       }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style src="./Skills.css" scoped>
+
 </style>
