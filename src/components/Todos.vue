@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <div class="holder">
-
+    <div class="holder todo">
       <form @submit.prevent="addTodo">
 
         <input type="text" placeholder="Enter a thing to do..." v-model="todo" v-validate="'min:1'" name="todo">
@@ -16,12 +15,24 @@
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
           <li v-for="(data, index) in todos" :key='index'>
             {{ data.todo }}
-            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+            <i class="fa fa-check-circle" v-on:click="markDone(index)"></i>
           </li>
         </transition-group>
       </ul>
-      <p>These are your to do items!</p>
     </div>
+
+    <div class="holder done">
+      <p>These items are done:</p>
+      <ul>
+        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li class="done" v-for="(data, index) in done" :key='index'>
+            {{ data.todo }}
+            <i class="fa fa-check-circle" v-on:click="remove(index)"></i>
+          </li>
+        </transition-group>
+      </ul>
+    </div>
+
   </div>
 </template>
 
@@ -35,6 +46,10 @@
           { "todo": "Finish Onboarding" },
           { "todo": "Learn Vue" }
         ],
+        done: [
+          { "todo": "thing 1" },
+          { "todo": "thing 2" }
+        ]
       }
     },
     methods: {
@@ -48,8 +63,8 @@
           }
         })
       },
-      remove(id) {
-        this.todos.splice(id,1);
+      markDone(id) {
+
       }
     }
   }
