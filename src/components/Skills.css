@@ -1,3 +1,4 @@
+@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
   .holder {
     background: #fff;
@@ -27,3 +28,40 @@
   .container {
     box-shadow: 0px 0px 40px lightgray;
   }
+
+  input {
+    width: calc(100% - 40px);
+    border: 0;
+    padding: 20px;
+    font-size: 1.3em;
+    background-color: #323333;
+    color: #687F7F;
+  }
+
+  .alert {
+    background: #fdf2ce;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px;
+    margin-top: -20px;
+}
+
+.alert-in-enter-active {
+  animation: bounce-in .5s;
+}
+
+.alert-in-leave-active {
+  animation: bounce-in .5s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
