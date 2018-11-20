@@ -46,12 +46,12 @@
 </style>
 
 <script>
-  import Skills from './components/Skills.vue'
+  import Todos from './components/Todos.vue'
 
   export default {
     name: 'app',
     components: {
-      Skills
+      Todos
     }
   }
 </script>

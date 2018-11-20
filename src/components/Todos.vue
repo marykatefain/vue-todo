@@ -2,60 +2,60 @@
   <div class="container">
     <div class="holder">
 
-      <form @submit.prevent="addSkill">
+      <form @submit.prevent="addTodo">
 
-        <input type="text" placeholder="Enter a skill you have..." v-model="skill" v-validate="'min:5'" name="skill">
+        <input type="text" placeholder="Enter a thing to do..." v-model="todo" v-validate="'min:1'" name="todo">
 
         <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-          <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
+          <p class="alert" v-if="errors.has('todo')">{{ errors.first('todo') }}</p>
         </transition>
 
       </form>
 
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in skills" :key='index'>
-            {{ data.skill }}
+          <li v-for="(data, index) in todos" :key='index'>
+            {{ data.todo }}
             <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
           </li>
         </transition-group>
       </ul>
-      <p>These are the skills that you possess.</p>
+      <p>These are your to do items!</p>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Skills',
+    name: 'Todos',
     data() {
       return {
-        skill: '',
-        skills: [
-          { "skill": "Vue.js" },
-          { "skill": "Frontend Developer" }
+        todo: '',
+        todos: [
+          { "todo": "Finish Onboarding" },
+          { "todo": "Learn Vue" }
         ],
       }
     },
     methods: {
-      addSkill() {
+      addTodo() {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.skills.push({skill: this.skill})
-            this.skill = '';
+            this.todos.push({todo: this.todo})
+            this.todo = '';
           } else {
             console.log("not valid");
           }
         })
       },
       remove(id) {
-        this.skills.splice(id,1);
+        this.todos.splice(id,1);
       }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style src="./Skills.css" scoped>
+<style src="./Todos.css" scoped>
 
 </style>
