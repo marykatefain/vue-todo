@@ -13,10 +13,10 @@
 
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in openTodos" :key='index'>
+          <li v-for="(data, index) in openTodos" :key='data.id'>
             {{ data.todo }}
-            <i class="fa fa-check-circle" v-on:click="markDone(index)"></i>
-            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+            <i class="fa fa-check-circle" v-on:click="markDone(data.id)"></i>
+            <i class="fa fa-minus-circle" v-on:click="remove(data.id)"></i>
           </li>
         </transition-group>
       </ul>
@@ -26,10 +26,10 @@
       <p>These items are done:</p>
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li class="done" v-for="(data, index) in doneTodos" :key='index'>
+          <li class="done" v-for="(data, index) in doneTodos" :key='data.id'>
             {{ data.todo }}
-            <i class="fa fa-check-circle" v-on:click="markTodo(index)"></i>
-            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+            <i class="fa fa-check-circle" v-on:click="markTodo(data.id)"></i>
+            <i class="fa fa-minus-circle" v-on:click="remove(data.id)"></i>
           </li>
         </transition-group>
       </ul>
@@ -45,22 +45,22 @@
       return {
         todo: '',
         todos: [
-          { "todo": "Finish Onboarding", "done": false },
-          { "todo": "Learn Vue", "done": false },
-          { "todo": "thing 1", "done": true },
-          { "todo": "thing 2", "done": true }
+          { "id": 0, "todo": "Thing 1", "done": false, "active": true },
+          { "id": 1, "todo": "Thing 2", "done": false, "active": true },
+          { "id": 2, "todo": "Thing 3", "done": true, "active": true },
+          { "id": 3, "todo": "Thing 4", "done": true, "active": true }
         ],
       }
     },
     computed: {
       openTodos: function() {
         return this.todos.filter(function(todo){
-          return todo.done == false;
+          return todo.done == false && todo.active;
         });
       },
       doneTodos: function() {
         return this.todos.filter(function(todo){
-          return todo.done == true;
+          return todo.done == true && todo.active;
         });
       }
     },
@@ -68,7 +68,12 @@
       addTodo() {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.todos.push({todo: this.todo})
+            this.todos.push({
+              id: this.todos.length,
+              todo: this.todo,
+              done: false,
+              active: true
+            })
             this.todo = '';
           } else {
             console.log("not valid");
@@ -76,15 +81,13 @@
         })
       },
       remove(id) {
-        this.todos.splice(id, 1);
+        this.todos[id].active = false;
       },
       markDone(id) {
         this.todos[id].done = true;
-        console.log(this.todos[id].done);
       },
       markTodo(id) {
         this.todos[id].done = false;
-        console.log("todo")
       }
     }
   }
