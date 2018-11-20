@@ -13,9 +13,10 @@
 
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in todos" :key='index'>
+          <li v-for="(data, index) in openTodos" :key='index'>
             {{ data.todo }}
             <i class="fa fa-check-circle" v-on:click="markDone(index)"></i>
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
           </li>
         </transition-group>
       </ul>
@@ -25,9 +26,10 @@
       <p>These items are done:</p>
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li class="done" v-for="(data, index) in done" :key='index'>
+          <li class="done" v-for="(data, index) in doneTodos" :key='index'>
             {{ data.todo }}
-            <i class="fa fa-check-circle" v-on:click="remove(index)"></i>
+            <i class="fa fa-check-circle" v-on:click="markTodo(index)"></i>
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
           </li>
         </transition-group>
       </ul>
@@ -43,13 +45,23 @@
       return {
         todo: '',
         todos: [
-          { "todo": "Finish Onboarding" },
-          { "todo": "Learn Vue" }
+          { "todo": "Finish Onboarding", "done": false },
+          { "todo": "Learn Vue", "done": false },
+          { "todo": "thing 1", "done": true },
+          { "todo": "thing 2", "done": true }
         ],
-        done: [
-          { "todo": "thing 1" },
-          { "todo": "thing 2" }
-        ]
+      }
+    },
+    computed: {
+      openTodos: function() {
+        return this.todos.filter(function(todo){
+          return todo.done == false;
+        });
+      },
+      doneTodos: function() {
+        return this.todos.filter(function(todo){
+          return todo.done == true;
+        });
       }
     },
     methods: {
@@ -63,8 +75,16 @@
           }
         })
       },
+      remove(id) {
+        this.todos.splice(id, 1);
+      },
       markDone(id) {
-
+        this.todos[id].done = true;
+        console.log(this.todos[id].done);
+      },
+      markTodo(id) {
+        this.todos[id].done = false;
+        console.log("todo")
       }
     }
   }

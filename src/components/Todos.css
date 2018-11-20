@@ -75,6 +75,7 @@ input {
 i {
   float: right;
   cursor: pointer;
+  padding: 5px;
 }
 
 .holder.done {
