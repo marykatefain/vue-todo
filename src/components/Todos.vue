@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+
+    <h1>{{ title }}</h1>
+
     <div class="holder todo">
       <form @submit.prevent="addTodo">
 
@@ -39,6 +42,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     name: 'Todos',
     data() {
@@ -52,6 +57,9 @@
         ],
       }
     },
+    // computed: mapState([
+    //   'title'
+    // ]),
     computed: {
       openTodos: function() {
         return this.todos.filter(function(todo){
@@ -62,7 +70,10 @@
         return this.todos.filter(function(todo){
           return todo.done == true && todo.active;
         });
-      }
+      },
+      ...mapState([
+        'title'
+      ])
     },
     methods: {
       addTodo() {
