@@ -29,11 +29,23 @@ export default new Vuex.Store({
     },
     REMOVE_TODO: (state, id) => {
       state.todos[id].active = false;
+    },
+    COMPLETE_TODO: (state, id) => {
+      state.todos[id].done = true;
+    },
+    UNCOMPLETE_TODO: (state, id) => {
+      state.todos[id].done = false;
     }
   },
   actions: {
     removeTodo: (context, id) => {
       context.commit("REMOVE_TODO", id)
+    },
+    completeTodo: (context, id) => {
+      context.commit("COMPLETE_TODO", id)
+    },
+    uncompleteTodo: (context, id) => {
+      context.commit("UNCOMPLETE_TODO", id)
     }
   }
 });

@@ -18,7 +18,7 @@
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
           <li v-for="(data, index) in openTodos" :key='data.id'>
             {{ data.todo }}
-            <i class="fa fa-check-circle" v-on:click="markDone(data.id)"></i>
+            <i class="fa fa-check-circle" v-on:click="completeTodos(data.id)"></i>
             <i class="fa fa-minus-circle" v-on:click="removeTodos(data.id)"></i>
           </li>
         </transition-group>
@@ -31,8 +31,8 @@
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
           <li class="done" v-for="(data, index) in doneTodos" :key='data.id'>
             {{ data.todo }}
-            <i class="fa fa-check-circle" v-on:click="markTodo(data.id)"></i>
-            <i class="fa fa-minus-circle" v-on:click="remove(data.id)"></i>
+            <i class="fa fa-check-circle" v-on:click="uncompleteTodos(data.id)"></i>
+            <i class="fa fa-minus-circle" v-on:click="removeTodos(data.id)"></i>
           </li>
         </transition-group>
       </ul>
@@ -75,7 +75,9 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
         'ADD_TODO'
       ]),
       ...mapActions([
-        'removeTodo'
+        'removeTodo',
+        'completeTodo',
+        'uncompleteTodo'
       ]),
       addTodo: function() {
         this.$validator.validateAll().then((result) => {
@@ -90,14 +92,11 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
       removeTodos: function(id) {
         this.removeTodo(id)
       },
-      // remove(id) {
-      //   this.todos[id].active = false;
-      // },
-      markDone(id) {
-        this.todos[id].done = true;
+      completeTodos: function(id) {
+        this.completeTodo(id)
       },
-      markTodo(id) {
-        this.todos[id].done = false;
+      uncompleteTodos: function(id) {
+        this.uncompleteTodo(id)
       }
     }
   }
