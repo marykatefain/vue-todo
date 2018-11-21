@@ -19,7 +19,7 @@
           <li v-for="(data, index) in openTodos" :key='data.id'>
             {{ data.todo }}
             <i class="fa fa-check-circle" v-on:click="markDone(data.id)"></i>
-            <i class="fa fa-minus-circle" v-on:click="remove(data.id)"></i>
+            <i class="fa fa-minus-circle" v-on:click="removeTodos(data.id)"></i>
           </li>
         </transition-group>
       </ul>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
   export default {
     name: 'Todos',
@@ -74,6 +74,9 @@ import { mapState, mapGetters, mapMutations } from 'vuex'
       ...mapMutations([
         'ADD_TODO'
       ]),
+      ...mapActions([
+        'removeTodo'
+      ]),
       addTodo: function() {
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -84,9 +87,12 @@ import { mapState, mapGetters, mapMutations } from 'vuex'
           }
         })
       },
-      remove(id) {
-        this.todos[id].active = false;
+      removeTodos: function(id) {
+        this.removeTodo(id)
       },
+      // remove(id) {
+      //   this.todos[id].active = false;
+      // },
       markDone(id) {
         this.todos[id].done = true;
       },
