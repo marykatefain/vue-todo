@@ -49,17 +49,8 @@ import { mapState } from 'vuex'
     data() {
       return {
         todo: '',
-        todos: [
-          { "id": 0, "todo": "Thing 1", "done": false, "active": true },
-          { "id": 1, "todo": "Thing 2", "done": false, "active": true },
-          { "id": 2, "todo": "Thing 3", "done": true, "active": true },
-          { "id": 3, "todo": "Thing 4", "done": true, "active": true }
-        ],
       }
     },
-    // computed: mapState([
-    //   'title'
-    // ]),
     computed: {
       openTodos: function() {
         return this.todos.filter(function(todo){
@@ -72,7 +63,8 @@ import { mapState } from 'vuex'
         });
       },
       ...mapState([
-        'title'
+        'title',
+        'todos'
       ])
     },
     methods: {

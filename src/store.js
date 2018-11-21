@@ -5,7 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    title: 'This is my title'
+    title: 'My To Do List',
+    todos: [
+      { "id": 0, "todo": "Thing 1", "done": false, "active": true },
+      { "id": 1, "todo": "Thing 2", "done": false, "active": true },
+      { "id": 2, "todo": "Thing 3", "done": true, "active": true },
+      { "id": 3, "todo": "Thing 4", "done": true, "active": true }
+    ],
   },
   mutations: {},
   actions: {}
