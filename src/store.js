@@ -26,6 +26,7 @@ export default new Vuex.Store({
         done: false,
         active: true
       })
+      console.log(state);
     },
     REMOVE_TODO: (state, id) => {
       state.todos[id].active = false;
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    addTodo: (context, todo) => {
+      context.commit("ADD_TODO", todo)
+    },
     removeTodo: (context, id) => {
       context.commit("REMOVE_TODO", id)
     },

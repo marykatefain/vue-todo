@@ -4,7 +4,7 @@
     <h1>{{ title }}</h1>
 
     <div class="holder todo">
-      <form @submit.prevent="addTodo">
+      <form @submit.prevent="addTodos">
 
         <input type="text" placeholder="Enter a thing to do..." v-model="newTodo" v-validate="'min:1'" name="todo">
 
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'Todos',
@@ -72,18 +72,21 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
       ])
     },
     methods: {
-      ...mapMutations([
-        'ADD_TODO'
-      ]),
+      // ...mapMutations([
+      //   'ADD_TODO'
+      // ]),
       ...mapActions([
         'removeTodo',
         'completeTodo',
-        'uncompleteTodo'
+        'uncompleteTodo',
+        'addTodo'
       ]),
-      addTodo: function() {
+      addTodos: function(todo) {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.ADD_TODO(this.newTodo)
+            console.log(todo);
+            this.addTodo(this.newTodo)
+            // this.ADD_TODO(this.newTodo)
             this.newTodo = ''
           } else {
             console.log("not valid");
