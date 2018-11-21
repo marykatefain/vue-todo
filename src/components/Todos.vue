@@ -1,12 +1,12 @@
 <template>
   <div class="container">
 
-    <h1>{{ title }}</h1>
+    <h1>{{ title }} - {{ countTodos }} Total</h1>
 
     <div class="holder todo">
       <form @submit.prevent="addTodo">
 
-        <input type="text" placeholder="Enter a thing to do..." v-model="todo" v-validate="'min:1'" name="todo">
+        <input type="text" placeholder="Enter a thing to do..." v-model="newTodo" v-validate="'min:1'" name="todo">
 
         <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
           <p class="alert" v-if="errors.has('todo')">{{ errors.first('todo') }}</p>
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
   export default {
     name: 'Todos',
     data() {
       return {
-        todo: '',
+        newTodo: '',
       }
     },
     computed: {
@@ -65,19 +65,20 @@ import { mapState } from 'vuex'
       ...mapState([
         'title',
         'todos'
+      ]),
+      ...mapGetters([
+        'countTodos'
       ])
     },
     methods: {
-      addTodo() {
+      ...mapMutations([
+        'ADD_TODO'
+      ]),
+      addTodo: function() {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            this.todos.push({
-              id: this.todos.length,
-              todo: this.todo,
-              done: false,
-              active: true
-            })
-            this.todo = '';
+            this.ADD_TODO(this.newTodo)
+            this.newTodo = ''
           } else {
             console.log("not valid");
           }

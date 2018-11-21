@@ -13,6 +13,20 @@ export default new Vuex.Store({
       { "id": 3, "todo": "Thing 4", "done": true, "active": true }
     ],
   },
-  mutations: {},
+  getters: {
+    countTodos: state => {
+      return state.todos.length
+    }
+  },
+  mutations: {
+    ADD_TODO: (state, todo) => {
+      state.todos.push({
+        id: state.todos.length,
+        todo: todo,
+        done: false,
+        active: true
+      })
+    }
+  },
   actions: {}
 });
