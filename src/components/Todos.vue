@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <h1>{{ title }} - {{ countTodos }} Total</h1>
+    <h1>{{ title }}</h1>
 
     <div class="holder todo">
       <form @submit.prevent="addTodo">
@@ -23,6 +23,7 @@
           </li>
         </transition-group>
       </ul>
+      <h2>{{ countTodos }} Total</h2>
     </div>
 
     <div class="holder done">

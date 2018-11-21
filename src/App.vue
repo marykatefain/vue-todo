@@ -15,18 +15,20 @@
 
   body {
     background-color: #EEEEEE;
+    height: auto;
     font-family: 'Montserrat', sans-serif;
     display: grid;
     grid-template-rows: auto;
     justify-items: center;
-    padding-top: 50px;
+    padding: 50px auto;
   }
-  body, html {
-    margin: 0;
-    height: 100%;
+  html {
+    /* margin: 0; */
+    /* height: 100%; */
   }
   #app {
       width: 50%;
+      padding: 20px;
   }
 
   nav {
